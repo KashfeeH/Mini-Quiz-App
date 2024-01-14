@@ -35,10 +35,10 @@ var questions = [
 	{ 
 		prompt: `Upon encountering empty statements, what does the Javascript Interpreter do?`, 
 		options: [
-    "Throws an error", 
-    "Ignores the statements", 
-    "Alerts a warning", 
-    "None of the above"
+      "Throws an error", 
+      "Ignores the statements", 
+      "Alerts a warning", 
+      "None of the above"
   ], 
 		answer: "Ignores the statements", 
 	}, 
@@ -96,6 +96,17 @@ var questions = [
 			"timify()", 
 		], 
 		answer: "clearInterval", 
+	}, 
+
+	{ 
+		prompt: `How are objects compared when they are checked with the strict equality operator?`, 
+		options: [ 
+			"The Contents of the objects are compared", 
+			"Their references are compared", 
+			"Both options 1 and 2", 
+			"None of the above", 
+		], 
+		answer: "Their references are compared", 
 	}, 
 ]; 
 
