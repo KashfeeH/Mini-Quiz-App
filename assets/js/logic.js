@@ -155,14 +155,14 @@ function questionClick() {
         }; 
     highscores.push(newScore); 
     window.localStorage.setItem("highscores", JSON.stringify(highscores)); 
-    alert("Your Score has been Submitted"); 
+    alert("Your Score has been listed. Click on Highscores to view"); 
     } else {
     alert("Please enter your initials only"); 
           }
     }
     
     //event listeners for the buttons provided by the HTML
-    
+
     submitButton.addEventListener ("click", saveHighscores);
     startButton.addEventListener ("click", startQuiz);
 
