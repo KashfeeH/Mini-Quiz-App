@@ -67,11 +67,13 @@ function updateQuestionTitle(prompt) {
 }
 
 //clears any previously displayed choices
+
 function clearChoices() {
   choicesEl.innerHTML = "";
 }
 
 //generates the buttons for each options of the current question
+
 function generateOptions(options) {
   options.forEach((option, index) => {
     let choiceButton = createChoiceButton(index, option);
@@ -79,6 +81,7 @@ function generateOptions(options) {
   });
 }
 //creates a single button for a given option
+
 function createChoiceButton(index, option) {
   let choiceButton = document.createElement("button");
   choiceButton.setAttribute("value", option);
@@ -86,5 +89,81 @@ function createChoiceButton(index, option) {
   choiceButton.onclick = questionClick;
   return choiceButton;
 }
+
+//this part of the function deals with the happenings when the 
+//user clicks on one of the answers for the question.
+//The function further provides feedback to the user in the 
+//form of right or wrong answers along with individual feedback sounds.
+
+function questionClick() { 
+  if (this.value !== questions[currentIndex].answer) { 
+    time -= 10; 
+    if (time < 0) { 
+        time = 0; 
+    } 
+    timerEl.textContent = time; 
+    var wrongSound = new Audio("./assets/sfx/incorrect.wav");
+    feedbackEl.textContent = "Incorrect!"
+    wrongSound.play();
+  } else {
+    correctAnswer++;
+    var rightSound = new Audio("./assets/sfx/correct.wav");
+    feedbackEl.textContent = "Correct!"
+    rightSound.play();
+  }
+    feedbackEl.setAttribute("class", "feedback"); 
+    setTimeout(function () { 
+        feedbackEl.setAttribute("class","feedback hide");}, 2000); 
+        currentIndex++; 
+    if (currentIndex === questions.length) { 
+        endQuiz(); 
+    } else { 
+        getQuestion(); 
+    } 
+  } 
+
+  //the endQuiz function is triggered when either the user has answered all questions
+  //or the time has run out
+
+  function endQuiz() { 
+    clearInterval(timer); 
+    var endScreen = document.getElementById("end-screen"); 
+        endScreen.removeAttribute("class"); 
+      var finalScore = document.getElementById("final-score"); 
+      finalScore.innerHTML = calculateScore(time); 
+      questionsEl.setAttribute("class", "hide"); 
+    } 
+  
+  //this function simply returns the number of answers the
+  //user got right. However, the required functionality
+  //for subtracting 10s from time for each wrong answers
+  //has been maintained.
+
+    function calculateScore() {
+      return correctAnswer;
+    }
+  //This responsible for saving the high scores of users to the local storage of the browser
+  //Also some added functionality for storing the initials of the user has been added
+  function saveHighscores() { 
+    var name = initialsEl.value.trim(); 
+    var letters = /^[A-Za-z]{1,3}$/
+    if (name !== "" && name.match(letters)) { 
+    var highscores = JSON.parse(window.localStorage.getItem("highscores")) || []; 
+      var newScore = { 
+          score: calculateScore(),
+          name: name, 
+        }; 
+    highscores.push(newScore); 
+    window.localStorage.setItem("highscores", JSON.stringify(highscores)); 
+    alert("Your Score has been Submitted"); 
+    } else {
+    alert("Please enter your initials only"); 
+          }
+    }
+    
+    //event listeners for the buttons provided by the HTML
+    
+    submitButton.addEventListener ("click", saveHighscores);
+    startButton.addEventListener ("click", startQuiz);
 
 
