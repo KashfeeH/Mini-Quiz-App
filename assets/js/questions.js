@@ -88,14 +88,14 @@ var questions = [
 	}, 
 
   { 
-		prompt: `Which function is used to serialize an object into a JSON string in Javascript?`, 
+		prompt: `How do we stop an interval timer in Javascript?`, 
 		options: [ 
-			"stringify()", 
-			"parse()", 
-			"convert()", 
-			"parsify()", 
+			"clearInterval", 
+			"setInterval", 
+			"timeCleaner()", 
+			"timify()", 
 		], 
-		answer: "stringify()", 
+		answer: "clearInterval", 
 	}, 
 ]; 
 
